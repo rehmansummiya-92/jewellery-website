@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Checkout Form | Larana, Inc.</title>
+
+  
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/smoothness/jquery-ui.css">
+
+  <link rel="stylesheet" href="style.css">
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+</head>
+
+<body>
+  <header>
+       <div class="checkoutlogo">Larana, Inc.</div> 
+  </header>
+    <main class="checkout">
+
+<form id="checkoutform">
+
+  <!-- CONTACT -->
+  <section>
+    <h3>Contact</h3>
+    <input type="email" name="email" placeholder="Email or mobile phone number">
+  </section>
+ <label>
+        <input class="inline" name="emailme" type="checkbox" id="sendmail">
+        Email me with news and offers
+        </label>
+  <!-- DELIVERY -->
+  <section>
+    <h3>Delivery</h3>
+
+    <select id="country">
+      <option value="">Country / Region</option>
+      <option value="Pakistan">Pakistan</option>
+    </select><br><br>
+
+    <div class="row">
+      <input type="text" name="firstname" placeholder="First name">
+      <input type="text" name="lastname" placeholder="Last name">
+    </div><br>
+
+    
+      <input type="text" name="city" placeholder="City">
+      <br><br>
+    <input type="text" name="address" placeholder="Address"><br><br>
+    <input type="text" placeholder="Apartment, suite, etc. (optional)">
+    <br><br>
+    
+    <div class="row">
+      
+      <input type="text" placeholder="Postal code (optional)">
+    </div><br>
+
+    <input type="tel" name="phone" placeholder="Phone">
+  </section>
+
+<div class="shipping-box">
+  <h3>Shipping Method</h3>
+
+  <div class="shipping-option">
+    <span>Standard Shipping</span>
+    <strong>Rs 199.00</strong>
+  </div>
+</div>
+
+
+<section>
+  <h3>Payment</h3>
+
+  <div id="accordion" class="payment-accordion">
+
+    <h4>
+      <label>
+        <input type="radio" name="payment" value="cod" class="inline">
+        Cash on Delivery (COD)
+      </label>
+    </h4>
+    <div>
+      <p>Pay at your doorstep</p>
+    </div>
+
+    <h4>
+      <label>
+        <input type="radio" name="payment" checked value="bank" class="inline">
+        Bank Deposit
+      </label>
+    </h4>
+    <div>
+      <p>
+        XYZ Bank<br>
+        Account: 12345b678912<br>
+        Title: Larana,Inc.
+      </p>
+    </div>
+
+    <h4>
+      <label>
+        <input type="radio" name="payment" value="jazzcash" class="inline">
+        JazzCash
+      </label>
+    </h4>
+    <div>
+      <p>Pay using JazzCash wallet</p>
+    </div>
+
+  </div>
+</section>
+
+
+   
+  
+    
+
+<section class="box-portion">
+  <h3>Billing address</h3>
+
+  <div id="billingAccordion" class="payment-accordion">
+
+    <h4>
+      <label>
+        <input type="radio" name="billing" class="inline" checked>
+        Same as shipping address
+      </label>
+    </h4>
+    <div>
+      <p>Deliver on same address</p>
+    </div>
+
+    <h4>
+      <label>
+        <input type="radio" name="billing" class="inline">
+        Use a different billing address
+      </label>
+    </h4>
+    <div>
+      <input type="text" name="billing_address" placeholder="Billing address"><br><br>
+      <input type="text" name="apartment" placeholder="Apartment (optional)"><br><br>
+      <div class="row">
+        <input type="text" name="billing_city" placeholder="City"><br><br>
+        <input type="text" name="postal_code"  placeholder="Postal code">
+      </div>
+    </div>
+
+  </div>
+</section>
+<button type="submit" class="btn">Complete order</button>
+
+</form>
+</main>
+<script>
+  $(document).ready(function(){
+$("#checkoutform").validate({
+
+  rules:{
+    email:{
+      required:true,
+      email:true
+    },
+    firstname:{
+      required:true
+    },
+    lastname:{
+      required:true
+    },
+    address:{
+      required:true
+    },
+    city:{
+      required:true
+    },
+    phone:{
+      required:true,
+      digits:true,
+      minlength:11,
+      maxlength:11
+    },
+    billing_address:{
+      required:true
+  },
+  billing_city:{
+    required:true
+  },
+},
+  messages:{
+    email:{
+      required:"Email address or phone number required",
+      email:"Enter valid email or phone"
+    },
+    
+    lastname:{
+      required:"Last name required",
+      name:"Enter your last name"
+    },
+    address:{
+      required:"Address required",
+      address:"Enter your address"
+    },
+    city:{
+      required:"City name required",
+      city:"Enter your City"
+    },
+    phone:{
+      required:"Phone number required",
+      maxlength: "Please enter 11 digits number",
+      minlength:"Please enter valid phone number"
+        },
+      billing_address:{
+      required:"Address required",
+      address:"Enter your address"
+    },
+    billing_city:{
+      required:"City name required",
+      billing_city:"Enter your City"
+    }
+    },
+   submitHandler: function(form) {
+    form.submit(function(e){
+     e.preventDefault();
+   })
+  }
+     });
+  
+
+// PAYMENT ACCORDION
+  $("#accordion").accordion({
+    heightStyle: "content"
+  })
+  $("#billingAccordion").accordion({
+    heightStyle: "content",
+    
+  });
+     $(".ui-accordion-header").css({
+     "font-size":"12px",
+      "border-color":"#b7a37a",
+  });
+  
+
+   $(".ui-accordion-content").css({
+     "font-size":"10px",
+     "border-color":"#b7a37a",
+  });
+  $(".ui-accordion-header-icon").css({
+  display: "none"
+  });
+  
+  $(".payment-accordion label").on("click", function(e){
+    e.stopPropagation();
+  });
+
+
+  $('input[name="payment"]').on('change', function () {
+    let index = $('input[name="payment"]').index(this);
+    $("#accordion").accordion("option", "active", index);
+  });
+ 
+  // Billing radio → accordion sync
+  $('input[name="billing"]').on("change", function () {
+    $("#billingAccordion").accordion(
+      "option",
+      "active",
+      $('input[name="billing"]').index(this)
+    )
+  });
+});
+
+
+
+</script>
+
+</body>
+</html>
